@@ -1,3 +1,5 @@
-Hello, this a repo I made for my hobbyist app as a versions database. My app will auto update from here.
+Hello, this a repo I made for my hobbyist app to hold source code.
 
-This repository currently only contains source code, as .exe uploads are too heavy.
+It is a python app.
+
+Currently, the update system is not supported. :)
