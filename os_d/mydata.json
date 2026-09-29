@@ -1,0 +1,38 @@
+{
+    "version": "1.0.0",
+    "apps": [
+        {
+            "id": 2,
+            "display_name": "Turtle Spirals",
+            "file": "tp1//main.exe",
+            "version": "1.0.0",
+            "visible": true,
+            "desc": "A python app that shows a mouse pointer draw spirals."
+        },
+        {
+            "id": 3,
+            "display_name": "Random Squares",
+            "file": "tp2//main.exe",
+            "version": "1.0.0",
+            "visible": true,
+            "desc": "A python app that shows a mouse pointer draw squares on a screen."
+        }
+    ],
+    "os": [
+        {
+            "id": 0,
+            "display_name": "This Software",
+            "file": "main.py",
+            "version": "1.0.0",
+            "visible": true,
+            "desc": "My Software"
+        },
+        {
+            "id": 1,
+            "display_name": "App Storage",
+            "file": "mydata.json",
+            "version": "1.0.0",
+            "visible": false
+        }
+    ]
+}
