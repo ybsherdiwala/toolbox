@@ -5,6 +5,7 @@
             "id": 2,
             "display_name": "Turtle Spirals",
             "file": "tp1//main.exe",
+            "nonbinfile": "tp1//main.py",
             "version": "1.0.0",
             "visible": true,
             "desc": "A python app that shows a mouse pointer draw spirals."
@@ -13,6 +14,7 @@
             "id": 3,
             "display_name": "Random Squares",
             "file": "tp2//main.exe",
+            "nonbinfile": "tp2//main.py",
             "version": "1.0.0",
             "visible": true,
             "desc": "A python app that shows a mouse pointer draw squares on a screen."
@@ -24,7 +26,7 @@
             "display_name": "This Software",
             "file": "main.py",
             "version": "1.0.0",
-            "visible": true,
+            "visible": false,
             "desc": "My Software"
         },
         {
