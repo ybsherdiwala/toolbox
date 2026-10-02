@@ -37,11 +37,11 @@ class AppDescription(ctk.CTkToplevel):
         self.geometry("300x300")
 
     def run_file(self):
-        print(self.params["path"])
+
         if self.params["isbin"]:
             subprocess.Popen([self.params["path"]])
         else:
-            subprocess.Popen(["python3", self.params["path"]])
+            subprocess.Popen([sys.executable, os.path.normpath(self.params["path"])])
         self.destroy()
 
 class ToolBoxClient(ctk.CTk):
@@ -98,10 +98,10 @@ class ToolBoxClient(ctk.CTk):
     def load_data(self):
         if hasattr(sys, 'frozen'):
             self.BASE_DIR = os.path.dirname(sys.executable)
-            self.ISBINARY = False
+            self.ISBINARY = True
         else:
             self.BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-            self.ISBINARY = True
+            self.ISBINARY = False
         self.MYDATA_DIR = os.path.join(self.BASE_DIR, "os_d//mydata.json")
 
         self.BASE_DIR = os.path.normpath(self.BASE_DIR)
@@ -123,35 +123,35 @@ class ToolBoxClient(ctk.CTk):
 
     def open_desc(self, current):
         finding = True
-        for app in self.data["apps"]:
-            if app["display_name"] == current:
-                if self.ISBINARY:
-                    path = os.path.join(self.BASE_DIR, "file")
-                else:
-                    path = os.path.join(self.BASE_DIR, "nobinfile")
-                params = {
-                    "appname": app["display_name"],
-                    "path": os.path.normpath(os.path.join(self.BASE_DIR, "apps", path)),
-                    "desc": app["desc"],
-                    "isbin": self.ISBINARY
-                    }
-                self.latest_desc = AppDescription(self, params)
-                finding = False
-        if finding:
-            for soft in self.data["os"]:
-                if self.ISBINARY:
-                    path = os.path.join(self.BASE_DIR, "file")
-                else:
-                    path = os.path.join(self.BASE_DIR, "nobinfile")
-                if soft["display_name"] == current:
+        if self.data["apps"]:
+            for app in self.data["apps"]:
+                if app["display_name"] == current:
+                    if self.ISBINARY: path = self.base_ext(app["file"])
+                    else: path = self.base_ext(app["nonbinfile"])
                     params = {
-                        "appname": soft["display_name"],
-                        "path": os.path.join(self.BASE_DIR, "os_d", path),
-                        "desc": soft["desc"],
+                        "appname": app["display_name"],
+                        "path": os.path.normpath(os.path.join(self.BASE_DIR, "apps", path)),
+                        "desc": app["desc"],
                         "isbin": self.ISBINARY
-                    }
-                self.latest_desc = AppDescription(self, params)
-                finding = False
+                        }
+                    self.latest_desc = AppDescription(self, params)
+                    finding = False
+        if finding:
+            if self.data["os"]:
+                for soft in self.data.get("os"):
+                    if soft["display_name"] == current:
+                        if self.ISBINARY: self.base_ext(soft["file"])
+                        else: self.base_ext(soft["nonbinfile"])
+                        params = {
+                            "appname": soft["display_name"],
+                            "path": os.path.join(self.BASE_DIR, "os_d", path),
+                            "desc": soft["desc"],
+                            "isbin": self.ISBINARY
+                        }
+                        self.latest_desc = AppDescription(self, params)
+
+    def base_ext(self, *args):
+            return os.path.normpath(os.path.join(self.BASE_DIR, *args))
 
     def uninstall(self):
         if self.ISBINARY:
