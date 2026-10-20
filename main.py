@@ -37,7 +37,6 @@ class AppDescription(ctk.CTkToplevel):
         self.geometry("300x300")
 
     def run_file(self):
-
         if self.params["isbin"]:
             subprocess.Popen([self.params["path"]])
         else:
